@@ -3,8 +3,9 @@ class AddTokenizer:
         # mappings
         self.str_to_int = vocab
         self.int_to_str = {i:j for (j,i) in vocab.items()}
-    def encode(self, text: str) -> list[int]:
-        ids = [self.str_to_int[i] for i in text]
+    def encode(self, text: str) -> list[int]:   
+        preprocessed = [i if i in self.str_to_int else "<UNK>" for i in text]
+        ids = [self.str_to_int[i] for i in preprocessed]
         return ids
     def decode(self, ids: list[int]) -> str:
         text = "".join([self.int_to_str[i] for i in ids])
